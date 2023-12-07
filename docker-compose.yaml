@@ -5,12 +5,14 @@ services:
     build: 
       context: ./node
     container_name: app
+    entrypoint: wait-for db:3306 -t 40 -- 
     networks: 
       - node-network
     volumes:
       - ./node:/usr/src/app
     ports:
       - "3000:3000"
+    command: bash -c "npm install && npm start"
 
   db:
     image: mysql:5.7
@@ -38,8 +40,6 @@ services:
       - node-network
     depends_on:
       - app
-    volumes:
-      - ./node:/usr/src/app
 
 networks:
   node-network:

@@ -10,6 +10,24 @@ const config = {
 const mysql = require('mysql');
 const connection = mysql.createConnection(config);
 
+function createTableIfNotExists() {
+  const createTableQuery = `
+    CREATE TABLE IF NOT EXISTS people (
+      id INT AUTO_INCREMENT PRIMARY KEY,
+      name VARCHAR(255) NOT NULL
+    )`;
+
+  connection.query(createTableQuery, (error) => {
+    if (error) {
+      console.error('Error creating table:', error.message);
+    } else {
+      console.log('Table created or already exists');
+    }
+  });
+}
+
+createTableIfNotExists();
+
 app.get('/', (req, res) => {
 
   const insertQuery = `INSERT INTO people(name) VALUES('NovoRegistro')`;
