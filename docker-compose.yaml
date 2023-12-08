@@ -24,7 +24,6 @@ services:
       - ./mysql:/var/lib/mysql
     environment:
       - MYSQL_DATABASE=nodedb
-      - MYSQL_ROOT_PASSWORD=root
       - MYSQL_USER=root    
     networks:
       - node-network
